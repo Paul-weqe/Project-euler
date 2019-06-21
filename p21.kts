@@ -1,39 +1,27 @@
 
 
 fun d(number: Int): Int{
-    var sumNumber = 0
-    for (x in 1..(number/2)){
-        if (number % x == 0) sumNumber += x
+    var resultArray: ArrayList<Int> = ArrayList()
+    for (x in 1..number-1){
+        if (number % x == 0) resultArray.add(x)
     }
-    return sumNumber
+    return resultArray.sum()
 }
 
+fun isAmicable(number: Int): Boolean{
+    val dResult = d(number)
 
-var amicableMap = HashMap<Int, Int>()
+    if (d(dResult) == number && dResult != number) return true
 
+    return false
+}
 
-for (number in 1..10000){
-    var result = d(number)
-    var y = d(result)
-    if (y == number){
-        amicableMap.put(number, result)
+var amicableList: ArrayList<Int> = ArrayList()
+
+for (x in 1..10000){
+    if (isAmicable(x) && !(amicableList.contains(x))) {
+        amicableList.add(x)
     }
 }
 
-var result: ArrayList<Int> = ArrayList()
-var finalSum: Int = 0
-
-for (number in amicableMap){
-    result.add(number.key)
-    result.add(number.value)
-//    if (!result.contains(number.key)) result.add(number.key)
-//    if (!result.contains(number.value)) result.add(number.value)
-}
-
-for (number in result){
-    finalSum += number
-}
-
-println(finalSum)
-
-
+println(amicableList.sum())
